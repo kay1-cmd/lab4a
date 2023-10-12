@@ -1,0 +1,64 @@
+/*
+package steps;
+
+ * This program takes data from a user's step tracker file, 
+ * calculates the high, medium, and low activity days (with percentages), and stores it in another file.
+ * Created 2/16/2022
+ * 
+ * @author Nia Jordan
+ * Section 200
+ * */
+
+import java.util.Scanner;
+import java.io.*;
+
+public class steps {
+	public static void main(String[] args)throws IOException {
+		//Create file and scanner instances, declare and initialize needs variables
+		File userFile = new File("steps.txt");
+		Scanner infile = new Scanner(userFile);
+		
+		int daySteps;
+		int highActivity = 0;
+		int medActivity = 0;
+		int lowActivity = 0;
+		
+		//Read data from the users file
+		
+		while(infile.hasNext()){
+			daySteps = infile.nextInt();
+		
+			
+			if(daySteps >= 10000)
+				highActivity++;
+			if(daySteps >= 5000 && daySteps <= 9999)
+				medActivity++;
+			if(daySteps < 5000)
+				lowActivity++;
+		}
+		infile.close();
+		
+		//Calculate averages
+		double high = ((double)highActivity * 100)/365 ;
+		double med = ((double)medActivity * 100)/365;
+		double low = ((double)lowActivity * 100)/365;
+		
+		//Print the results to the new file
+		
+		PrintWriter outfile = new PrintWriter("activityResults.txt");
+		
+		outfile.println("   Activity Results");
+		outfile.println("________________________");
+		outfile.println();
+		outfile.printf("High Activity Days: %d, %.2f", highActivity, high);
+		outfile.println("%");
+		outfile.printf("Medium Activity Days: %d, %.2f", medActivity, med);
+		outfile.println("%");
+		outfile.printf("Low Activity Days: %d, %.2f", lowActivity, low);
+		outfile.println("%");
+		
+		outfile.close();
+	}
+
+}
+
